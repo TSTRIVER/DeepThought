@@ -8,7 +8,7 @@ updation, and deletion using the Event Nudge API.
 
   ------------------------------------------------------------------------------------------------
   Request   Base URL              API Endpoint                  Payload           Description
-  Type      (\"/api/v1/nudge\")                                                   
+  Type      ("/api/v1/nudge")                                                   
   --------- --------------------- ----------------------------- ----------------- ----------------
   GET       /api/v1/nudge         /events?name=event_name       None              Retrieve the
                                                                                   tagged event
