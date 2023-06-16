@@ -1,0 +1,156 @@
+Event Nudge API Documentation ============================
+
+# Introduction
+
+Welcome to the Event Nudge API documentation. This guide will provide
+you with the necessary information to handle nudge requests, creation,
+updation, and deletion using the Event Nudge API.
+
+  ------------------------------------------------------------------------------------------------
+  Request   Base URL              API Endpoint                  Payload           Description
+  Type      (\"/api/v1/nudge\")                                                   
+  --------- --------------------- ----------------------------- ----------------- ----------------
+  GET       /api/v1/nudge         /events?name=event_name       None              Retrieve the
+                                                                                  tagged event
+
+  GET       /api/v1/nudge         /articles?name=article_name   None              Retrieve the
+                                                                                  tagged article
+
+  POST      /api/v1/nudge         /nudge_data?nudgeFor=event&   title,            Create a new
+                                  type_id=event_id              image_file,       nudge and return
+                                                                scheduled_date,   its ID
+                                                                from_time,        
+                                                                to_time,          
+                                                                description,      
+                                                                icon_file,        
+                                                                invitation        
+
+  PUT       /api/v1/nudge         /nudge_data?id=nudge_id       Same as previous  Update the
+                                                                post request      contents of the
+                                                                                  nudge
+
+  DELETE    /api/v1/nudge         /nudge_data?id=nudge_id       None              Delete the nudge
+  ------------------------------------------------------------------------------------------------
+
+# Nudge Object Model
+
+The Nudge object represents a nudge with the following properties:
+
+-   **id** (string): Nudge ID at the time of creation.
+-   **type_id** (string): Article ID or Event ID.
+-   **type** (string): Type of nudge (Article or Event).
+-   **title** (string): Nudge title.
+-   **image_file** (object): Image file associated with the nudge.
+-   **scheduled_date** (string): Scheduled date for the nudge in ISO
+    date format.
+-   **from_time** (string): Start time for the nudge in ISO time format.
+-   **to_time** (string): End time for the nudge in ISO time format.
+-   **description** (string): Nudge description.
+-   **icon_file** (object): Icon file associated with the nudge.
+-   **invitation** (string): One-liner invitation message for the nudge.
+-   **createdAt** (date): Date and time of creation (default date at
+    creation time).
+
+These properties define the structure and attributes of a nudge object
+in the Nudge API.
+
+Usage Example:
+
+``` json
+{
+    "id": "123456",
+    "type_id": "7890",
+    "type": "Article",
+    "title": "Sample Article Nudge",
+    "image_file": null,
+    "scheduled_date": "2023-06-30",
+    "from_time": "09:00:00",
+    "to_time": "10:30:00",
+    "description": "This is a sample article nudge.",
+    "icon_file": null,
+    "invitation": "Join us for this exciting article!",
+    "createdAt": "2023-06-15T14:25:00Z"
+}
+```
+
+ ---------------
+ API Endpoints
+ ---------------
+
+The Nudge API supports the following CRUD operations:
+
+# Create Nudge
+
+Create a new nudge with the specified details and return its ID.
+
+-   **HTTP Method:** POST
+-   **Endpoint:** `/api/v1/nudge/nudge_data`
+-   **Body Parameters**:
+        -   `title` (required, string): Title of the nudge
+        -   `image` (optional, file): Image file for the nudge
+        -   `scheduled_date` (required, string): Scheduled date for the
+            nudge in ISO date format
+        -   `from_time` (required, string): Start time for the nudge in
+            ISO time format
+        -   `to_time` (required, string): End time for the nudge in ISO
+            time format
+        -   `description` (required, string): Description of the nudge
+        -   `icon` (optional, file): Icon file for the nudge
+        -   `invitation` (required, string): Invitation message for the
+            nudge 
+
+-   **Query Parameters**:
+
+        -   `nudgeFor` (required, string): Type of nudge (e.g.,
+            \"event\")
+        -   `type_id` (required, string): ID of the specific nudge type
+            (e.g., event ID)
+
+# Update Nudge
+
+Update the contents of the specified nudge with the provided details.
+
+-   **HTTP Method:** PUT
+-   **Endpoint:** `/api/v1/nudge/nudge_data`
+-   **Query Parameters**:
+       -   `id` (required, string): ID of the nudge to be updated
+-   **Body Parameters**:
+
+       -   \[Include the same parameters as in the POST operation\]
+
+# Delete Nudge
+
+Delete the specified nudge.
+
+-   **HTTP Method:** DELETE
+-   **Endpoint:** `/api/v1/nudge/nudge_data`
+-   **Query Parameters**:
+      -   `id` (required, string): ID of the nudge to be deleted
+-   **Body Parameters**:
+      -   None
+
+# Get Event
+
+Get the Event Tagged by the User
+
+-   **HTTP Method:** GET
+-   **Endpoint:** `/api/v1/nudge/events`
+-   **Query Parameters**:
+
+       -   `name` (required, string): Name of the Event for which Nudge
+            is being Created
+-    **Body Parameters**:
+       - None
+
+# Get Article
+
+Get the Article Tagged by the User
+
+-   **HTTP Method:** GET
+-   **Endpoint:** `/api/v1/nudge/articles`
+-   **Query Parameters**:
+      -   `name` (required, string): Name of the Article for which
+            Nudge is being Created
+-   
+    **Body Parameters**:   
+      -    None
